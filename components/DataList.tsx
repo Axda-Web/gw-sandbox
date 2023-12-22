@@ -4,8 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import { graphql } from "@/gql";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { formatMovieImgPath } from "@/lib/utils";
 
 const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
@@ -50,15 +51,17 @@ export const DataList = () => {
             className="max-w-fit rounded-none shadow-2xl"
             key={film?.node?.id}
           >
-            <CardContent className="p-0">
-              <Image
-                src={imgPath}
-                width={400}
-                height={225}
-                alt={`${film?.node?.title} poster`}
-                className={cn("")}
-              />
-            </CardContent>
+            <Link href={`/films/${film?.node?.id}`}>
+              <CardContent className="p-0">
+                <Image
+                  src={imgPath}
+                  width={400}
+                  height={225}
+                  alt={`${film?.node?.title} poster`}
+                  className={cn("")}
+                />
+              </CardContent>
+            </Link>
           </Card>
         );
       })}

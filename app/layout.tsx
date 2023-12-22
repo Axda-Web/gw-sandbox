@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 import { Header } from "@/components/Header";
 
@@ -20,13 +21,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={cn(inter.className)}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(inter.className, "dark:bg-black")}>
         <TanstackProvider>
-          <div className={cn("max-w-[1200px] mx-auto p-6 pb-10", "lg:py-14")}>
-            <Header />
-            {children}
-          </div>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className={cn("max-w-[1200px] mx-auto p-6 pb-10", "lg:py-14")}>
+              <Header />
+              {children}
+            </div>
+          </ThemeProvider>
         </TanstackProvider>
       </body>
     </html>
