@@ -3,6 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import { graphql } from "@/gql";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatMovieImgPath } from "@/lib/utils";
 
 const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
   query allFilmsWithVariablesQuery($first: Int!) {
@@ -30,11 +34,34 @@ export const DataList = () => {
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) throw Error();
+
   return (
-    <section>
-      {data?.allFilms?.edges?.map((film) => (
-        <div key={film?.node?.id}>{film?.node?.title}</div>
-      ))}
+    <section
+      className={cn(
+        "grid gap-8 grid-cols-1 justify-items-center mt-6",
+        "sm:grid-cols-2 sm:mt-12",
+        "lg:grid-cols-3"
+      )}
+    >
+      {data?.allFilms?.edges?.map((film) => {
+        const imgPath = formatMovieImgPath(film?.node?.title!);
+        return (
+          <Card
+            className="max-w-fit rounded-none shadow-2xl"
+            key={film?.node?.id}
+          >
+            <CardContent className="p-0">
+              <Image
+                src={imgPath}
+                width={400}
+                height={225}
+                alt={`${film?.node?.title} poster`}
+                className={cn("")}
+              />
+            </CardContent>
+          </Card>
+        );
+      })}
     </section>
   );
 };

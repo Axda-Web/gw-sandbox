@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+import { Header } from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +21,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <TanstackProvider>{children}</TanstackProvider>
+      <body className={cn(inter.className)}>
+        <TanstackProvider>
+          <div className={cn("max-w-[1200px] mx-auto p-6 pb-10", "lg:py-14")}>
+            <Header />
+            {children}
+          </div>
+        </TanstackProvider>
       </body>
     </html>
   );
