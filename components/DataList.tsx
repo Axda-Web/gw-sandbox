@@ -8,7 +8,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatMovieImgPath } from "@/lib/utils";
-import { Skeleton } from "./ui/skeleton";
+import { motion } from "framer-motion";
 
 const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
   query allFilmsWithVariablesQuery($first: Int!) {
@@ -23,8 +23,10 @@ const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
   }
 `);
 
+const MotionCard = motion(Card);
+
 export const DataList = async () => {
-  const { data, isLoading, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: ["films"],
     queryFn: async () =>
       request(
@@ -33,37 +35,6 @@ export const DataList = async () => {
         { first: 10 }
       ),
   });
-
-  // if (isLoading)
-  //   return (
-  //     <div
-  //       className={cn(
-  //         "grid gap-8 grid-cols-1 justify-items-center mt-6",
-  //         "sm:grid-cols-2 sm:mt-12",
-  //         "lg:grid-cols-3"
-  //       )}
-  //     >
-  //       <Skeleton
-  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
-  //       />
-  //       <Skeleton
-  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
-  //       />
-  //       <Skeleton
-  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
-  //       />
-  //       <Skeleton
-  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
-  //       />
-  //       <Skeleton
-  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
-  //       />
-  //       <Skeleton
-  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
-  //       />
-  //     </div>
-  //   );
-  if (isError) throw Error();
 
   return (
     <section
@@ -76,8 +47,14 @@ export const DataList = async () => {
       {data?.allFilms?.edges?.map((film) => {
         const imgPath = formatMovieImgPath(film?.node?.title!);
         return (
-          <Card
-            className="max-w-fit rounded-none shadow-2xl"
+          <MotionCard
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 1 } }}
+            whileHover={{ scale: 1.02, borderColor: "#FFC501" }}
+            className={cn(
+              "max-w-fit rounded-none shadow-2xl",
+              "dark:shadow-none"
+            )}
             key={film?.node?.id}
           >
             <Link href={`/films/${film?.node?.id}`}>
@@ -91,7 +68,7 @@ export const DataList = async () => {
                 />
               </CardContent>
             </Link>
-          </Card>
+          </MotionCard>
         );
       })}
     </section>

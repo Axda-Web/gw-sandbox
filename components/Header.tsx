@@ -41,7 +41,7 @@ export const Header = () => {
         variant="outline"
         onClick={handleClick}
       >
-        {theme === "light" ? <Moon /> : <Sun />}
+        {theme === "light" ? <Moon color="#FFC501" /> : <Sun color="#FFC501" />}
       </Button>
     </header>
   );
