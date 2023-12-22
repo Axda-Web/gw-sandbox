@@ -9,24 +9,15 @@ export default function Loading() {
         "lg:grid-cols-3"
       )}
     >
-      <Skeleton
-        className={cn("w-[325px] h-[180px] rounded-none", "dark:bg-slate-800")}
-      />
-      <Skeleton
-        className={cn("w-[325px] h-[180px] rounded-none", "dark:bg-slate-800")}
-      />
-      <Skeleton
-        className={cn("w-[325px] h-[180px] rounded-none", "dark:bg-slate-800")}
-      />
-      <Skeleton
-        className={cn("w-[325px] h-[180px] rounded-none", "dark:bg-slate-800")}
-      />
-      <Skeleton
-        className={cn("w-[325px] h-[180px] rounded-none", "dark:bg-slate-800")}
-      />
-      <Skeleton
-        className={cn("w-[325px] h-[180px] rounded-none", "dark:bg-slate-800")}
-      />
+      {new Array(6).map((_, i) => (
+        <Skeleton
+          key={i}
+          className={cn(
+            "w-[325px] h-[180px] rounded-none",
+            "dark:bg-slate-800"
+          )}
+        />
+      ))}
     </div>
   );
 }
