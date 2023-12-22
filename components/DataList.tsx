@@ -8,6 +8,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatMovieImgPath } from "@/lib/utils";
+import { Skeleton } from "./ui/skeleton";
 
 const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
   query allFilmsWithVariablesQuery($first: Int!) {
@@ -22,7 +23,7 @@ const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
   }
 `);
 
-export const DataList = () => {
+export const DataList = async () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["films"],
     queryFn: async () =>
@@ -33,7 +34,35 @@ export const DataList = () => {
       ),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  // if (isLoading)
+  //   return (
+  //     <div
+  //       className={cn(
+  //         "grid gap-8 grid-cols-1 justify-items-center mt-6",
+  //         "sm:grid-cols-2 sm:mt-12",
+  //         "lg:grid-cols-3"
+  //       )}
+  //     >
+  //       <Skeleton
+  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
+  //       />
+  //       <Skeleton
+  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
+  //       />
+  //       <Skeleton
+  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
+  //       />
+  //       <Skeleton
+  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
+  //       />
+  //       <Skeleton
+  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
+  //       />
+  //       <Skeleton
+  //         className={cn("w-[300px] h-[170px] rounded-none", "dark:bg-white")}
+  //       />
+  //     </div>
+  //   );
   if (isError) throw Error();
 
   return (
