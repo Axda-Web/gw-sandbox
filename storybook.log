@@ -1,0 +1,14 @@
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'next@14.0.4',
+npm WARN EBADENGINE   required: { node: '>=18.17.0' },
+npm WARN EBADENGINE   current: { node: 'v18.15.0', npm: '9.6.4' }
+npm WARN EBADENGINE }
+npm ERR! code ERR_SOCKET_TIMEOUT
+npm ERR! network Socket timeout
+npm ERR! network This is a problem related to network connectivity.
+npm ERR! network In most cases you are behind a proxy or have bad network settings.
+npm ERR! network 
+npm ERR! network If you are behind a proxy, please make sure that the
+npm ERR! network 'proxy' config is set properly.  See: 'npm help config'
+
+npm ERR! A complete log of this run can be found in: /Users/axda/.npm/_logs/2023-12-23T07_52_38_563Z-debug-0.log

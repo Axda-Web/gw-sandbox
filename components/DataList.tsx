@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
-import { formatMovieImgPath } from "@/lib/utils";
+import { formatFilmImgPath } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 const allFilmsWithVariablesQueryDocument = graphql(/* GraphQL */ `
@@ -45,7 +45,7 @@ export const DataList = async () => {
       )}
     >
       {data?.allFilms?.edges?.map((film) => {
-        const imgPath = formatMovieImgPath(film?.node?.title!);
+        const imgPath = formatFilmImgPath(film?.node?.title!, "poster");
         return (
           <MotionCard
             initial={{ opacity: 0 }}
